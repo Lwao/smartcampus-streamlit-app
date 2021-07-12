@@ -55,15 +55,10 @@ with load:
     default_yoko = st.text_input('Link para o dataset do CW500:', value=default_yoko)
     default_comade = st.text_input('Link para o dataset do Smartcampus 1.0:', value=default_comade)
     default_semade = st.text_input('Link para o dataset do Smartcampus 2.0:', value=default_semade)
-    
-    print(default_yoko)
-
-
+   
     fname_yoko = 'https://drive.google.com/uc?export=download&id='+default_yoko.split('/')[-2]
     fname_comade = 'https://drive.google.com/uc?export=download&id='+default_comade.split('/')[-2]
     fname_semade = 'https://drive.google.com/uc?export=download&id='+default_semade.split('/')[-2]
-    df = get_data_yoko(fname_yoko)
-    st.write(df.head())
 
     which_datasets = st.multiselect('Escolha os datasets a serem analisados:', dataset_options, dataset_options)
 
@@ -83,7 +78,7 @@ with load:
             end_date = df_yoko['Timestamp'].iloc[-1] 
             calendar1.date_input("Duração dos dados: CW500", [start_date, end_date],
             min_value=start_date, max_value=end_date)
-        elif(itr=='Smartcampus 1.0'): 
+        if(itr=='Smartcampus 1.0'): 
             df_comade = get_data_smartmetropolis(fname_comade, '_comade')
             df_lengths['df_comade'] = len(df_comade)
             flags['df_comade'] = True
@@ -91,7 +86,7 @@ with load:
             end_date = df_comade['Timestamp'].iloc[-1] 
             calendar2.date_input("Duração dos dados: Smartcampus 1.0", [start_date, end_date],
             min_value=start_date, max_value=end_date)
-        elif(itr=='Smartcampus 2.0'): 
+        if(itr=='Smartcampus 2.0'): 
             df_semade = get_data_smartmetropolis(fname_semade, '_semade')
             df_lengths['df_semade'] = len(df_semade)
             flags['df_semade'] = True
