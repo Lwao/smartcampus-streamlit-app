@@ -46,7 +46,8 @@ with load:
     st.markdown(load_markdown())
 
     
-    default_yoko = 'https://drive.google.com/file/d/1EFRE6md8BYFfOYOcueZbKc_k47eK7R93/view?usp=sharing'
+    default_yoko = 'https://drive.google.com/file/d/1EFRE6md8BYFfOYOcueZbKc_k47eK7R93/view?usp=sharing' # dataset completo
+    default_yoko = 'https://drive.google.com/file/d/1eBi9kUSRWjGubCzI77TfSEHOi4rxOmCf/view?usp=sharing' # dataset cortado
     default_comade = 'https://drive.google.com/file/d/1xHjrBebEb02rGRkXOfGc64wJicHpNQcr/view?usp=sharing'
     default_semade = 'https://drive.google.com/file/d/1tLZBHQqe5rbCW4ijbX_ghi74k-_7Ds-X/view?usp=sharing'     
 
@@ -112,18 +113,10 @@ with load:
     if(start_date<df['Timestamp'].iloc[0]): result_calendar.error('Erro: Data inicial precisa estar contida no período que há dados disponíveis.')
     elif(end_date>df['Timestamp'].iloc[-1]): result_calendar.error('Erro: Data final precisa estar contida no período que há dados disponíveis.')
     elif(start_date >= end_date): result_calendar.error('Erro: Data final deve estar à frente da data inicial.')
-    else: result_calendar.success('Data inicial: `%s`\n\nData final:`%s`' % (start_date, end_date))
-    print('espaço')
-    print(start_date)
-    print(end_date)
-    print(df['Timestamp'].iloc[0])
-    print(df['Timestamp'].iloc[-1])
-    print(df['Timestamp'][df['Timestamp']>=pd.to_datetime(start_date)].iloc[0])
-    print(df['Timestamp'][df['Timestamp']>=pd.to_datetime(end_date)].iloc[0])
+    else: result_calendar.success('Data inicial: `%s`\n\nData final: `%s`' % (start_date, end_date))
 
-
-    idx_ini = 100
-    idx_end = 1000
+    idx_ini = df['Timestamp'][df['Timestamp']>=pd.to_datetime(start_date)].iloc[0:1].index[0]
+    idx_end = df['Timestamp'][df['Timestamp']>=pd.to_datetime(end_date)].iloc[0:1].index[0]
 
 label_yoko = ['AVG_V1[V][V]','AVG_V2[V][V]','AVG_V3[V][V]','AVG_A1[A][A]','AVG_A2[A][A]','AVG_A3[A][A]']
 label_sade = ['voltA', 'voltB', 'voltC','correnteA', 'correnteB', 'correnteC']
