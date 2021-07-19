@@ -202,11 +202,11 @@ def app():
                     )
 
                     fig2.add_trace(
-                        go.Scatter(y=100*(dfPlot[predLabels[i]]-dfPlot[labels[2*i+1]])/dfPlot[labels[2*i+1]], name='erro' + preNames[i]+label1),
+                        go.Scatter(x=dfPlot[labels[2*i+1]], y=100*(dfPlot[predLabels[i]]-dfPlot[labels[2*i+1]])/dfPlot[labels[2*i+1]], name='erro' + preNames[i]+label1),
                         row=x, col=y
                     )
                     fig2.add_trace(
-                        go.Scatter(y=100*(dfPlot[labels[2*i]]-dfPlot[labels[2*i+1]])/dfPlot[labels[2*i+1]], name='erro' + preNames[i]+label2),
+                        go.Scatter(x=dfPlot[labels[2*i+1]], y=100*(dfPlot[labels[2*i]]-dfPlot[labels[2*i+1]])/dfPlot[labels[2*i+1]], name='erro' + preNames[i]+label2),
                         row=x, col=y
                     )
                     
