@@ -19,3 +19,8 @@ def graph_title():
     return 'Resultados gráficos'
 def graph_markdown():
     return ''
+
+def calibration_title():
+    return 'Calibração em bancada'
+def calibration_markdown():
+    return 'O dataset carregado para realizar a calibração deve seguir o padrão abaixo em relação às suas colunas. Vale destacar que as colunas não precisam necessariamente seguir a ordem apresentada, mas devem conter os mesmos nomes.'

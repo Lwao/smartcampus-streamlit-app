@@ -3,7 +3,13 @@ from text_description import *
 from imports import *
 from plot_suite import *
 
-from pages import data_init, graphs
+# Save state
+import streamlit as st
+from streamlit.hashing import _CodeHasher
+from streamlit.report_thread import get_report_ctx
+from streamlit.server.server import Server
+
+from pages import data_init, graphs, calibration
 
 def main():
     st.markdown(
@@ -25,7 +31,8 @@ def main():
         'Plot de tensão/corrente': graphs.app,
         'Plot de frequência': graphs.app,
         'Plot de fator de potência': graphs.app,
-        'Plot de potências (P/S/Q)': graphs.app
+        'Plot de potências (P/S/Q)': graphs.app,
+        'Calibração em bancada': calibration.app,
         }
 
     st.sidebar.title("Funcionalidades")
@@ -33,10 +40,11 @@ def main():
 
     # Display the selected page with the session state
     if(choice=='Inicializar o dataset'): state = pages[choice](state)
-    elif(choice=='Plot de tensão/corrente'): pages[choice](state, plot_voltage_n_current)
+    if(choice=='Plot de tensão/corrente'): pages[choice](state, plot_voltage_n_current)
     elif(choice=='Plot de frequência'): pages[choice](state, plot_frequency)
     elif(choice=='Plot de fator de potência'): pages[choice](state, plot_power_factor)
     elif(choice=='Plot de potências (P/S/Q)'): pages[choice](state, plot_power)
+    elif(choice=='Calibração em bancada'): pages[choice]()
 
     # Mandatory to avoid rollbacks with widgets, must be called at the end of your app
     state.sync()
