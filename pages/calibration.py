@@ -193,11 +193,11 @@ def app():
                     y = int(i - 3*np.floor(i/3))+1
 
                     fig1.add_trace(
-                        go.Scatter(x=dfPlot[labels[2*i+1]], y=dfPlot[predLabels[i]], name=preNames[i]+label1),
+                        go.Scatter(x=dfPlot[labels[2*i]], y=dfPlot[predLabels[i]], name=preNames[i]+label1),
                         row=x, col=y
                     )
                     fig1.add_trace(
-                        go.Scatter(x=dfPlot[labels[2*i+1]], y=dfPlot[labels[2*i]], name=preNames[i]+label2),
+                        go.Scatter(x=dfPlot[labels[2*i]], y=dfPlot[labels[2*i+1]], name=preNames[i]+label2),
                         row=x, col=y
                     )
 
@@ -212,12 +212,12 @@ def app():
                     
                 
 
-                fig1.update_layout(height=700, width=1100, title_text='Predição/Lido vs. Real')
-                fig1.update_xaxes(title_text='Real lido no multimedidor', showgrid=True)
+                fig1.update_layout(height=700, width=1100, title_text='Predição/Real vs. Lido')
+                fig1.update_xaxes(title_text='Valor lido no ESP', showgrid=True)
                 fig2.update_layout(height=700, width=1100, title_text='Erro relativo da Predição/Lido vs. Real')
 
-                fig1['layout']['yaxis']['title']='Predição/Lido'
-                fig1['layout']['yaxis4']['title']='Predição/Lido'
+                fig1['layout']['yaxis']['title']='Predição/Real'
+                fig1['layout']['yaxis4']['title']='Predição/Real'
                 fig2['layout']['yaxis']['title']='Erro relativo (%)'
                 fig2['layout']['yaxis4']['title']='Erro relativo (%)'
 
