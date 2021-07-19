@@ -221,6 +221,13 @@ def app():
                 fig2['layout']['yaxis']['title']='Erro relativo (%)'
                 fig2['layout']['yaxis4']['title']='Erro relativo (%)'
 
+                fig2['layout']['xaxis1']['title']='Tensão real (V)'
+                fig2['layout']['xaxis2']['title']='Tensão real (V)'
+                fig2['layout']['xaxis3']['title']='Tensão real (V)'
+                fig2['layout']['xaxis4']['title']='Corrente real (A)'
+                fig2['layout']['xaxis5']['title']='Corrente real (A)'
+                fig2['layout']['xaxis6']['title']='Corrente real (A)'
+
                 graph1.write(fig1)
                 graph2.write(fig2)
         else: pass
