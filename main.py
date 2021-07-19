@@ -11,6 +11,11 @@ from streamlit.server.server import Server
 
 from pages import data_init, graphs, calibration
 
+st.set_page_config(
+                    page_title="Análise de dados de energia - Smartcampus",
+                    page_icon="smart_logo.png"
+                )
+
 def main():
     st.markdown(
             f"""
@@ -24,6 +29,7 @@ def main():
             unsafe_allow_html=True,
         )
 
+    
     state = _get_state()
 
     pages = {
