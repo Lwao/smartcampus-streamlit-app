@@ -56,6 +56,8 @@ def load_smartmetropolis_dataset(filename_smartmetropolis, label):
   df['Timestamp'] -= pd.to_timedelta(3, unit='h')         # delay timestamps for 3h to correct dashboard desynchronization
   df['Timestamp'] += pd.to_timedelta(1, unit='min') 
   df['Timestamp'] += pd.to_timedelta(20, unit='sec') 
+  df['Timestamp'] += pd.to_timedelta(6, unit='min') 
+  df['Timestamp'] += pd.to_timedelta(20, unit='sec') 
   df = df.reset_index(drop=True)                         # reset indexes after cleaning
 
   new_columns = ['Timestamp']
