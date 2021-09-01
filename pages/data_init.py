@@ -39,10 +39,13 @@ def app(state):
         st.markdown(load_markdown())
 
         
-        default_yoko = 'https://drive.google.com/file/d/1EFRE6md8BYFfOYOcueZbKc_k47eK7R93/view?usp=sharing' # dataset completo
-        default_yoko = 'https://drive.google.com/file/d/1eBi9kUSRWjGubCzI77TfSEHOi4rxOmCf/view?usp=sharing' # dataset cortado
-        default_comade = 'https://drive.google.com/file/d/1xHjrBebEb02rGRkXOfGc64wJicHpNQcr/view?usp=sharing'
-        default_semade = 'https://drive.google.com/file/d/1tLZBHQqe5rbCW4ijbX_ghi74k-_7Ds-X/view?usp=sharing'     
+        #default_yoko = 'https://drive.google.com/file/d/1EFRE6md8BYFfOYOcueZbKc_k47eK7R93/view?usp=sharing' # dataset completo
+        #default_yoko = 'https://drive.google.com/file/d/1eBi9kUSRWjGubCzI77TfSEHOi4rxOmCf/view?usp=sharing' # dataset cortado
+        #default_comade = 'https://drive.google.com/file/d/1xHjrBebEb02rGRkXOfGc64wJicHpNQcr/view?usp=sharing'
+        #default_semade = 'https://drive.google.com/file/d/1tLZBHQqe5rbCW4ijbX_ghi74k-_7Ds-X/view?usp=sharing'     
+        default_yoko = '' # dataset cortado
+        default_comade = ''
+        default_semade = ''
 
         st.markdown('Insira os links públicos para os datasets de interesse.')
 
