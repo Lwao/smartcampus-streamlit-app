@@ -100,9 +100,9 @@ def full_regression(df, degList, condList, labels):
 
 def app(): 
 
-    initialization = st.beta_container()
-    configuration = st.beta_container()
-    results = st.beta_container()
+    initialization = st.container()
+    configuration = st.container()
+    results = st.container()
 
     labelsReduced = ['VA', 'VB', 'VC', 'IA', 'IB', 'IC']
     predLabels = ['VA_PREDITO','VB_PREDITO','VC_PREDITO','IA_PREDITO','IB_PREDITO','IC_PREDITO']
@@ -150,7 +150,7 @@ def app():
                 st.header('Configurações da calibração')
                 st.markdown('Algumas configurações devem ser realizadas para que a calibração atenda os resultados esperados.')
 
-                degree_columns = st.beta_columns(6)
+                degree_columns = st.columns(6)
 
                 list_ = ['VA): ', 'VB): ', 'VC): ', 'IA): ', 'IB): ', 'IC): ']
                 for i in range(6): degList[i][0] = degree_columns[i].number_input(label='Grau do polinômio (' + list_[i], min_value=1)
@@ -171,8 +171,8 @@ def app():
                 # sorting dataset
 
                 dfPlot = df.copy()
-                graph1 = st.beta_container()
-                graph2 = st.beta_container()
+                graph1 = st.container()
+                graph2 = st.container()
 
                 for i in range(6):
                     dfPlot[labels[2*i]] = dfPlot[labels[2*i]].sort_values(ascending=True)

@@ -1,8 +1,9 @@
 from imports import *
 
+@st.cache
 def plot_voltage_n_current(df, flags):
-    graph1 = st.beta_container()
-    graph2 = st.beta_container()
+    graph1 = st.container()
+    graph2 = st.container()
     graph1.subheader('Séries temporais das tensões/correntes medidas')
 
     title = 'Análise da série temporal'
@@ -94,8 +95,9 @@ def plot_voltage_n_current(df, flags):
     #fig.show()
     graph2.write(fig)
 
+@st.cache
 def plot_frequency(df, flags):
-    graph = st.beta_container()
+    graph = st.container()
     graph.subheader('Séries temporais das frequências medidas')
 
     fig = make_subplots(rows=2, cols=1, shared_xaxes=False)
@@ -143,8 +145,9 @@ def plot_frequency(df, flags):
 
     graph.write(fig)
 
+@st.cache
 def plot_power_factor(df, flags):
-    graph = st.beta_container()
+    graph = st.container()
     graph.subheader('Séries temporais dos fatores de potência')
 
     fig = make_subplots(rows=2, cols=1, shared_xaxes=False)
@@ -196,8 +199,9 @@ def plot_power_factor(df, flags):
 
     graph.write(fig)
 
+@st.cache
 def plot_power(df, flags):
-    graph = st.beta_container()
+    graph = st.container()
     graph.subheader('Séries temporais das potências')
 
     fig = make_subplots(rows=3, cols=1, shared_xaxes=False)

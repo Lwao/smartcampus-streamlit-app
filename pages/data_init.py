@@ -16,12 +16,9 @@ def get_data_smartmetropolis(fname, id):
 
 def app(state):
 
-    header = st.beta_container()
-    dataset = st.beta_container()
-    load = st.beta_container()
-
-    
-
+    header = st.container()
+    dataset = st.container()
+    load = st.container()
 
     with header:
         st.image('logo.png')
@@ -38,14 +35,9 @@ def app(state):
         st.header(load_title())
         st.markdown(load_markdown())
 
-        
-        #default_yoko = 'https://drive.google.com/file/d/1EFRE6md8BYFfOYOcueZbKc_k47eK7R93/view?usp=sharing' # dataset completo
-        #default_yoko = 'https://drive.google.com/file/d/1eBi9kUSRWjGubCzI77TfSEHOi4rxOmCf/view?usp=sharing' # dataset cortado
-        #default_comade = 'https://drive.google.com/file/d/1xHjrBebEb02rGRkXOfGc64wJicHpNQcr/view?usp=sharing'
-        #default_semade = 'https://drive.google.com/file/d/1tLZBHQqe5rbCW4ijbX_ghi74k-_7Ds-X/view?usp=sharing'     
-        default_yoko = '' # dataset cortado
-        default_comade = ''
-        default_semade = ''
+        default_yoko = 'https://drive.google.com/file/d/1J7yGn3FFYUIkEm54aRBtu-I4I1J6zYiT/view?usp=sharing'
+        default_comade = 'https://drive.google.com/file/d/1zG7ODWfHxsxpSwGO_sJmt1pAmtiecnuu/view?usp=sharing'
+        default_semade = 'https://drive.google.com/file/d/12Zh_5t9Nl5M1Mh0S0Ny_Co07RfS_llNt/view?usp=sharing'
 
         st.markdown('Insira os links públicos para os datasets de interesse.')
 
@@ -53,18 +45,18 @@ def app(state):
         default_comade = st.text_input('Link para o dataset do Smartcampus 1.0:', value=default_comade)
         default_semade = st.text_input('Link para o dataset do Smartcampus 2.0:', value=default_semade)
     
-        fname_yoko = 'https://drive.google.com/uc?export=download&id='+default_yoko.split('/')[-2]
-        fname_comade = 'https://drive.google.com/uc?export=download&id='+default_comade.split('/')[-2]
-        fname_semade = 'https://drive.google.com/uc?export=download&id='+default_semade.split('/')[-2]
+        fname_base = 'https://drive.google.com/uc?export=download&id='
+        fname_yoko = fname_base+default_yoko.split('/')[-2]
+        fname_comade = fname_base+default_comade.split('/')[-2]
+        fname_semade = fname_base+default_semade.split('/')[-2]
 
         which_datasets = st.multiselect('Escolha os datasets a serem analisados:', dataset_options, dataset_options)
-
 
         df_lengths = dict()
         df = pd.DataFrame()
         flags = dict({'df_yoko':False, 'df_comade':False, 'df_semade':False})
 
-        calendar1, calendar2, calendar3 = st.beta_columns(3)
+        calendar1, calendar2, calendar3 = st.columns(3)
 
         # load chosen dataframes
         for itr in which_datasets:
@@ -103,7 +95,7 @@ def app(state):
 
         st.markdown(load_markdown1())
 
-        calendar_col1, calendar_col2, result_calendar = st.beta_columns(3)
+        calendar_col1, calendar_col2, result_calendar = st.columns(3)
 
         start_date = calendar_col1.date_input('Data inicial:', value=df['Timestamp'].iloc[0], min_value=df['Timestamp'].iloc[0], max_value=df['Timestamp'].iloc[-1])
         end_date = calendar_col2.date_input('Data final:', value=df['Timestamp'].iloc[-1], min_value=df['Timestamp'].iloc[0], max_value=df['Timestamp'].iloc[-1])

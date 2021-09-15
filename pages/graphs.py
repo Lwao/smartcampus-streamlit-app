@@ -7,7 +7,7 @@ def app(state, usage_function):
     df = state.__getitem__('df')
     flags = state.__getitem__('flags')
 
-    graph = st.beta_container()
+    graph = st.container()
 
     with graph:
         st.header(graph_title())
