@@ -13,7 +13,7 @@ from pages import data_init, graphs, calibration
 
 st.set_page_config(
                     page_title="Análise de dados de energia - Smartcampus",
-                    page_icon="smart_logo.png"
+                    page_icon="images/smart_logo.png"
                 )
 
 def main():

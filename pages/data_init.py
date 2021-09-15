@@ -2,8 +2,6 @@ from imports import *
 from data_analysis import *
 from text_description import *
 
-
-
 @st.cache
 def get_data_yoko(fname):
     df = load_yokogawa_dataset(fname)
@@ -21,7 +19,7 @@ def app(state):
     load = st.container()
 
     with header:
-        st.image('logo.png')
+        st.image('images/logo.png')
         st.title(header_title())
         st.markdown(header_markdown())
 

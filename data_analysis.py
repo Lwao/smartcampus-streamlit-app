@@ -30,7 +30,7 @@ def load_yokogawa_dataset(filename_yokogawa):
   return df
 
 def load_smartmetropolis_dataset(filename_smartmetropolis, label):
-  df = pd.read_csv(filename_smartmetropolis,           # filename read in previous cell
+  df = pd.read_csv(filename_smartmetropolis,  # filename read in previous cell
                   delimiter=',',              # semicolon(;)/coma(,) separated values
                   encoding='utf-8',           # encoding in utf-8
                   na_values=['inf'],          # assign NaN to inf values
