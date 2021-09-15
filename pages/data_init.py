@@ -43,7 +43,7 @@ def app(state):
         default_comade = st.text_input('Link para o dataset do Smartcampus 1.0:', value=default_comade)
         default_semade = st.text_input('Link para o dataset do Smartcampus 2.0:', value=default_semade)
     
-        fname_base = 'https://drive.google.com/uc?export=download&id='
+        fname_base = 'https://drive.google.com/u/0/uc?export=download&id='
         fname_yoko = fname_base+default_yoko.split('/')[-2]
         fname_comade = fname_base+default_comade.split('/')[-2]
         fname_semade = fname_base+default_semade.split('/')[-2]
@@ -85,7 +85,9 @@ def app(state):
 
         # sort dataframes by size
         df_sorted = sorted(df_lengths, key=df_lengths.get)
+        st.write(df_sorted.head())
 
+        
         # inner merge based in Timestamp where left=smaller and right=higher
         for itr in range(len(df_sorted)):
             if(itr==0): df = eval(df_sorted[itr])
@@ -111,6 +113,3 @@ def app(state):
         
 
         return state
-
-
-
