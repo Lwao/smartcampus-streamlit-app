@@ -1,6 +1,6 @@
 from imports import *
 
-@st.cache
+@st.cache(suppress_st_warning=True)
 def plot_voltage_n_current(df, flags):
     graph1 = st.container()
     graph2 = st.container()
@@ -95,7 +95,7 @@ def plot_voltage_n_current(df, flags):
     #fig.show()
     graph2.write(fig)
 
-@st.cache
+@st.cache(suppress_st_warning=True)
 def plot_frequency(df, flags):
     graph = st.container()
     graph.subheader('Séries temporais das frequências medidas')
@@ -145,7 +145,7 @@ def plot_frequency(df, flags):
 
     graph.write(fig)
 
-@st.cache
+@st.cache(suppress_st_warning=True)
 def plot_power_factor(df, flags):
     graph = st.container()
     graph.subheader('Séries temporais dos fatores de potência')
@@ -199,7 +199,7 @@ def plot_power_factor(df, flags):
 
     graph.write(fig)
 
-@st.cache
+@st.cache(suppress_st_warning=True)
 def plot_power(df, flags):
     graph = st.container()
     graph.subheader('Séries temporais das potências')

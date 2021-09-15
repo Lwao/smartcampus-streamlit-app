@@ -3,12 +3,14 @@ from data_analysis import *
 from text_description import *
 
 @st.cache
-def get_data_yoko(fname):
+def get_data_yoko(fname, url):
+    gdown.download(url, fname, quiet=False)
     df = load_yokogawa_dataset(fname)
     return df
 
 @st.cache
-def get_data_smartmetropolis(fname, id):
+def get_data_smartmetropolis(fname, url, id):
+    gdown.download(url, fname, quiet=False)
     df = load_smartmetropolis_dataset(fname, label=id)
     return df
 
@@ -43,10 +45,14 @@ def app(state):
         default_comade = st.text_input('Link para o dataset do Smartcampus 1.0:', value=default_comade)
         default_semade = st.text_input('Link para o dataset do Smartcampus 2.0:', value=default_semade)
     
-        fname_base = 'https://drive.google.com/u/0/uc?export=download&id='
-        fname_yoko = fname_base+default_yoko.split('/')[-2]
-        fname_comade = fname_base+default_comade.split('/')[-2]
-        fname_semade = fname_base+default_semade.split('/')[-2]
+        url_base = 'https://drive.google.com/uc?export=download&id='
+        default_yoko = url_base+default_yoko.split('/')[-2]
+        default_comade = url_base+default_comade.split('/')[-2]
+        default_semade = url_base+default_semade.split('/')[-2]
+
+        fname_yoko = 'datasets/yoko.csv'
+        fname_comade = 'datasets/comade.csv'
+        fname_semade = 'datasets/semade.csv'
 
         which_datasets = st.multiselect('Escolha os datasets a serem analisados:', dataset_options, dataset_options)
 
@@ -59,7 +65,7 @@ def app(state):
         # load chosen dataframes
         for itr in which_datasets:
             if(itr=='CW500'): 
-                df_yoko = get_data_yoko(fname_yoko)
+                df_yoko = get_data_yoko(fname_yoko, default_yoko)
                 df_lengths['df_yoko'] = len(df_yoko)
                 flags['df_yoko'] = True
                 start_date = df_yoko['Timestamp'].iloc[0]  
@@ -67,7 +73,7 @@ def app(state):
                 calendar1.date_input("Duração dos dados: CW500", [start_date, end_date],
                 min_value=start_date, max_value=end_date)
             if(itr=='Smartcampus 1.0'): 
-                df_comade = get_data_smartmetropolis(fname_comade, '_comade')
+                df_comade = get_data_smartmetropolis(fname_comade, default_comade, '_comade')
                 df_lengths['df_comade'] = len(df_comade)
                 flags['df_comade'] = True
                 start_date = df_comade['Timestamp'].iloc[0]  
@@ -75,7 +81,7 @@ def app(state):
                 calendar2.date_input("Duração dos dados: Smartcampus 1.0", [start_date, end_date],
                 min_value=start_date, max_value=end_date)
             if(itr=='Smartcampus 2.0'): 
-                df_semade = get_data_smartmetropolis(fname_semade, '_semade')
+                df_semade = get_data_smartmetropolis(fname_semade, default_semade, '_semade')
                 df_lengths['df_semade'] = len(df_semade)
                 flags['df_semade'] = True
                 start_date = df_semade['Timestamp'].iloc[0]  
@@ -85,8 +91,6 @@ def app(state):
 
         # sort dataframes by size
         df_sorted = sorted(df_lengths, key=df_lengths.get)
-        st.write(df_sorted.head())
-
         
         # inner merge based in Timestamp where left=smaller and right=higher
         for itr in range(len(df_sorted)):
@@ -104,8 +108,8 @@ def app(state):
         elif(start_date >= end_date): result_calendar.error('Erro: Data final deve estar à frente da data inicial.')
         else: result_calendar.success('Data inicial: `%s`\n\nData final: `%s`' % (start_date, end_date))
 
-        idx_ini = df['Timestamp'][df['Timestamp']>=pd.to_datetime(start_date)].iloc[0:1].index[0]
-        idx_end = df['Timestamp'][df['Timestamp']>=pd.to_datetime(end_date)].iloc[0:1].index[0]
+        idx_ini = df['Timestamp'][df['Timestamp']>=pd.Timestamp(start_date)].iloc[0:1].index[0]
+        idx_end = df['Timestamp'][df['Timestamp']>=pd.Timestamp(end_date)].iloc[0:1].index[0]
         df = df.iloc[idx_ini:idx_end]
     
         state.__setitem__('df',df)
