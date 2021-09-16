@@ -4,7 +4,7 @@ marker_yoko = dict(color='#636EFA',size=1)
 marker_sade = dict(color='#B6E880',size=1)
 marker_cade = dict(color='#EF553B',size=1)
 
-@st.cache(suppress_st_warning=True)
+#@st.cache(suppress_st_warning=True)
 def plot_voltage_n_current(df, flags):
     graph1 = st.container()
     graph2 = st.container()
@@ -99,7 +99,7 @@ def plot_voltage_n_current(df, flags):
     #fig.show()
     graph2.write(fig)
 
-@st.cache(suppress_st_warning=True)
+#@st.cache(suppress_st_warning=True)
 def plot_frequency(df, flags):
     graph = st.container()
     graph.subheader('Séries temporais das frequências medidas')
@@ -149,7 +149,7 @@ def plot_frequency(df, flags):
 
     graph.write(fig)
 
-@st.cache(suppress_st_warning=True)
+#@st.cache(suppress_st_warning=True)
 def plot_power_factor(df, flags):
     graph = st.container()
     graph.subheader('Séries temporais dos fatores de potência')
@@ -203,7 +203,7 @@ def plot_power_factor(df, flags):
 
     graph.write(fig)
 
-@st.cache(suppress_st_warning=True)
+#@st.cache(suppress_st_warning=True)
 def plot_power(df, flags):
     graph = st.container()
     graph.subheader('Séries temporais das potências')
