@@ -4,13 +4,13 @@ from text_description import *
 
 @st.cache
 def get_data_yoko(fname, url):
-    gdown.download(url, fname, quiet=False)
+    if (not os.path.isfile(fname)): gdown.download(url, fname, quiet=False) # file not exist
     df = load_yokogawa_dataset(fname)
     return df
 
 @st.cache
 def get_data_smartmetropolis(fname, url, id):
-    gdown.download(url, fname, quiet=False)
+    if (not os.path.isfile(fname)): gdown.download(url, fname, quiet=False) # file not exist
     df = load_smartmetropolis_dataset(fname, label=id)
     return df
 
