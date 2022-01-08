@@ -188,6 +188,7 @@ def app():
                 preNames = ['VA-', 'VB-', 'VC-', 'IA-', 'IB-', 'IC-']   
                 label1 = 'predito'
                 label2 = 'lido'
+                dfPlot = dfPlot.apply(pd.to_numeric)
                 for i in range(6):
                     x = int(np.floor(i/3))+1
                     y = int(i - 3*np.floor(i/3))+1
@@ -200,13 +201,16 @@ def app():
                         go.Scatter(x=dfPlot[labels[2*i]], y=dfPlot[labels[2*i+1]], name=preNames[i]+label2),
                         row=x, col=y
                     )
-
+                    
+                    erro1 = (dfPlot[predLabels[i]]-dfPlot[labels[2*i+1]])/dfPlot[labels[2*i+1]]
+                    erro2 = (dfPlot[labels[2*i]]-dfPlot[labels[2*i+1]])/dfPlot[labels[2*i+1]]
+                    
                     fig2.add_trace(
-                        go.Scatter(x=dfPlot[labels[2*i+1]], y=100*(dfPlot[predLabels[i]]-dfPlot[labels[2*i+1]])/dfPlot[labels[2*i+1]], name='erro' + preNames[i]+label1),
+                        go.Scatter(x=dfPlot[labels[2*i+1]], y=100*erro1, name='erro' + preNames[i]+label1),
                         row=x, col=y
                     )
                     fig2.add_trace(
-                        go.Scatter(x=dfPlot[labels[2*i+1]], y=100*(dfPlot[labels[2*i]]-dfPlot[labels[2*i+1]])/dfPlot[labels[2*i+1]], name='erro' + preNames[i]+label2),
+                        go.Scatter(x=dfPlot[labels[2*i+1]], y=100*erro2, name='erro' + preNames[i]+label2),
                         row=x, col=y
                     )
                     
