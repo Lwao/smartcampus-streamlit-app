@@ -9,9 +9,9 @@ def get_data_yoko(fname, url):
     return df
 
 @st.cache
-def get_data_smartmetropolis(fname, url, id):
+def get_data_smartmetropolis(fname, url, id, delay):
     if (not os.path.isfile(fname)): gdown.download(url, fname, quiet=False) # file not exist
-    df = load_smartmetropolis_dataset(fname, label=id)
+    df = load_smartmetropolis_dataset(fname, label=id, delay_sec=delay)
     return df
 
 def app(state):
@@ -35,9 +35,9 @@ def app(state):
         st.header(load_title())
         st.markdown(load_markdown())
 
-        default_yoko = 'https://drive.google.com/file/d/1J7yGn3FFYUIkEm54aRBtu-I4I1J6zYiT/view?usp=sharing'
-        default_comade = 'https://drive.google.com/file/d/1zG7ODWfHxsxpSwGO_sJmt1pAmtiecnuu/view?usp=sharing'
-        default_semade = 'https://drive.google.com/file/d/12Zh_5t9Nl5M1Mh0S0Ny_Co07RfS_llNt/view?usp=sharing'
+        default_yoko = 'https://drive.google.com/file/d/1yOW8fLU09cfiS-yS7hM-LcWlb2aSJ7HA/view?usp=sharing'
+        default_comade = 'https://drive.google.com/file/d/18etsD8YxAp9sKAYUdfOMuKonoBXQFyjk/view?usp=sharing'
+        default_semade = 'https://drive.google.com/file/d/1GFdR8hXc4JbF2N84GBL9pQjsb74BMhdB/view?usp=sharing'
 
         st.markdown('Insira os links públicos para os datasets de interesse.')
 
@@ -73,7 +73,7 @@ def app(state):
                 calendar1.date_input("Duração dos dados: CW500", [start_date, end_date],
                 min_value=start_date, max_value=end_date)
             if(itr=='Smartcampus 1.0'): 
-                df_comade = get_data_smartmetropolis(fname_comade, default_comade, '_comade')
+                df_comade = get_data_smartmetropolis(fname_comade, default_comade, '_comade', 60*38-18)
                 df_lengths['df_comade'] = len(df_comade)
                 flags['df_comade'] = True
                 start_date = df_comade['Timestamp'].iloc[0]  
@@ -81,7 +81,7 @@ def app(state):
                 calendar2.date_input("Duração dos dados: Smartcampus 1.0", [start_date, end_date],
                 min_value=start_date, max_value=end_date)
             if(itr=='Smartcampus 2.0'): 
-                df_semade = get_data_smartmetropolis(fname_semade, default_semade, '_semade')
+                df_semade = get_data_smartmetropolis(fname_semade, default_semade, '_semade', 60*38-18)
                 df_lengths['df_semade'] = len(df_semade)
                 flags['df_semade'] = True
                 start_date = df_semade['Timestamp'].iloc[0]  

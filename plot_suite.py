@@ -29,24 +29,24 @@ def plot_voltage_n_current(df, flags):
 
         if(flags['df_yoko']):
             fig.add_trace(
-                go.Scatter(x=df['Timestamp'], y=df[label_yoko[i]], name=labels[i]+'cw500', marker=marker_yoko),
+                go.Scatter(x=df['Timestamp'], y=df[label_yoko[i]], legendgroup=labels[i], name=labels[i]+'CW500', marker=marker_yoko),
                 row=x, col=y
             )
         if(flags['df_semade']):
             fig.add_trace(
-                go.Scatter(x=df['Timestamp'], y=df[label_sade[i]], name=labels[i]+'semade', marker=marker_sade),
+                go.Scatter(x=df['Timestamp'], y=df[label_sade[i]], legendgroup=labels[i], name=labels[i]+'SC-2.0', marker=marker_sade),
                 row=x, col=y
             )
         if(flags['df_comade']):
             fig.add_trace(
-                go.Scatter(x=df['Timestamp'], y=df[label_cade[i]], name=labels[i]+'comade', marker=marker_cade),
+                go.Scatter(x=df['Timestamp'], y=df[label_cade[i]], legendgroup=labels[i], name=labels[i]+'SC-1.0', marker=marker_cade),
                 row=x, col=y
             )
 
 
     fig.update_layout(height=700, width=1100)#, title_text=title)
     fig.update_yaxes(title_text="", showgrid=True)
-    fig.update_xaxes(title_text="", showgrid=True)
+    fig.update_xaxes(title_text="", showgrid=True, matches='x')
 
     fig['layout']['yaxis']['title']='Tensão (V)'
     fig['layout']['yaxis4']['title']='Corrente (A)'
@@ -74,24 +74,24 @@ def plot_voltage_n_current(df, flags):
         
         if(flags['df_yoko'] and flags['df_semade']):
             fig.add_trace(
-                go.Scatter(x=df['Timestamp'], y=error_sade, name=labels[i]+'semadeVS.cw500', marker=marker_yoko),
+                go.Scatter(x=df['Timestamp'], y=error_sade, legendgroup=labels[i], name=labels[i]+'SC-2.0VS.CW500', marker=marker_yoko),
                 row=x, col=y
             )
         if(flags['df_yoko'] and flags['df_comade']):
             fig.add_trace(
-                go.Scatter(x=df['Timestamp'], y=error_cade, name=labels[i]+'comadeVS.cw500', marker=marker_sade),
+                go.Scatter(x=df['Timestamp'], y=error_cade, legendgroup=labels[i], name=labels[i]+'SC-1.0VS.CW500', marker=marker_sade),
                 row=x, col=y
             )
         if(not flags['df_yoko']):
             fig.add_trace(
-                go.Scatter(x=df['Timestamp'], y=error_scade, name=labels[i]+'comadeVS.semade', marker=marker_cade),
+                go.Scatter(x=df['Timestamp'], y=error_scade, legendgroup=labels[i], name=labels[i]+'SC-1.0VS.SC-2.0', marker=marker_cade),
                 row=x, col=y
             )
 
 
     fig.update_layout(height=700, width=1100)#, title_text=title)
     fig.update_yaxes(title_text="", showgrid=True)
-    fig.update_xaxes(title_text="", showgrid=True)
+    fig.update_xaxes(title_text="", showgrid=True, matches='x')
 
     fig['layout']['yaxis']['title']='Erro relativo (%)'
     fig['layout']['yaxis4']['title']='Erro relativo (%)'
@@ -109,40 +109,42 @@ def plot_frequency(df, flags):
 
     if(flags['df_yoko']):
         fig.add_trace(
-            go.Scatter(x=df['Timestamp'], y=df['AVG_f[Hz][Hz]'], name='cw500', marker=marker_yoko),
+            go.Scatter(x=df['Timestamp'], y=df['AVG_f[Hz][Hz]'], name='CW500', marker=marker_yoko),
             row=1, col=1
         )
     if(flags['df_semade']):
         fig.add_trace(
-            go.Scatter(x=df['Timestamp'], y=df['frequencia_semade'], name='semade', marker=marker_sade),
+            go.Scatter(x=df['Timestamp'], y=df['frequencia_semade'], name='SC-2.0', marker=marker_sade),
             row=1, col=1
         )
     if(flags['df_comade']):
         fig.add_trace(
-            go.Scatter(x=df['Timestamp'], y=df['frequencia_comade'], name='comade', marker=marker_cade),
+            go.Scatter(x=df['Timestamp'], y=df['frequencia_comade'], name='SC-1.0', marker=marker_cade),
             row=1, col=1
         )
 
 
     if(flags['df_semade'] and flags['df_yoko']):
         fig.add_trace(
-            go.Scatter(x=df['Timestamp'], y=np.abs(100*(df['frequencia_semade']-df['AVG_f[Hz][Hz]'])/df['AVG_f[Hz][Hz]']), name='erro_semadeVS.CW500', marker=marker_yoko),
+            go.Scatter(x=df['Timestamp'], y=np.abs(100*(df['frequencia_semade']-df['AVG_f[Hz][Hz]'])/df['AVG_f[Hz][Hz]']), name='erro_SC-2.0VS.CW500', marker=marker_yoko),
             row=2, col=1
         )
     if(flags['df_comade'] and flags['df_yoko']):
         fig.add_trace(
-            go.Scatter(x=df['Timestamp'], y=np.abs(100*(df['frequencia_comade']-df['AVG_f[Hz][Hz]'])/df['AVG_f[Hz][Hz]']), name='erro_comadeVS.CW500', marker=marker_sade),
+            go.Scatter(x=df['Timestamp'], y=np.abs(100*(df['frequencia_comade']-df['AVG_f[Hz][Hz]'])/df['AVG_f[Hz][Hz]']), name='erro_SC-1.0VS.CW500', marker=marker_sade),
             row=2, col=1
         )
     if(flags['df_comade'] and flags['df_semade'] and not flags['df_yoko']):
         fig.add_trace(
-            go.Scatter(x=df['Timestamp'], y=np.abs(100*(df['frequencia_comade']-df['frequencia_semade'])/df['frequencia_semade']), name='erro_comadeVS.semade', marker=marker_cade),
+            go.Scatter(x=df['Timestamp'], y=np.abs(100*(df['frequencia_comade']-df['frequencia_semade'])/df['frequencia_semade']), name='erro_SC-1.0VS.SC-2.0', marker=marker_cade),
             row=2, col=1
         )
     
 
 
     fig.update_layout(height=600, width=800)
+    fig.update_yaxes(title_text="", showgrid=True)
+    fig.update_xaxes(title_text="", showgrid=True, matches='x')
 
     fig['layout']['yaxis1']['title']= 'Frequência (Hz)'
     fig['layout']['yaxis2']['title']='Erro relativo (%)'
@@ -159,46 +161,46 @@ def plot_power_factor(df, flags):
 
     if(flags['df_yoko']):
         fig.add_trace(
-            go.Scatter(x=df['Timestamp'], y=df['AVG_PF[]'], name='cw500', marker=marker_yoko),
+            go.Scatter(x=df['Timestamp'], y=df['AVG_PF[]'], name='CW500', marker=marker_yoko),
             row=1, col=1
         )
     if(flags['df_semade']):
         fig.add_trace(
-            go.Scatter(x=df['Timestamp'], y=df['fatorDePotencia_semade'], name='semade', marker=marker_sade),
+            go.Scatter(x=df['Timestamp'], y=df['fatorDePotencia_semade'], name='SC-2.0', marker=marker_sade),
             row=1, col=1
         )
     if(flags['df_comade']):
         fig.add_trace(
-            go.Scatter(x=df['Timestamp'], y=df['fatorDePotencia_comade'], name='comade', marker=marker_cade),
+            go.Scatter(x=df['Timestamp'], y=df['fatorDePotencia_comade'], name='SC-1.0', marker=marker_cade),
             row=1, col=1
         )
 
     if(flags['df_comade'] and flags['df_yoko']):
         fig.add_trace(
-            go.Scatter(x=df['Timestamp'], y=np.abs(100*(df['fatorDePotencia_comade']-df['AVG_PF[]'])/df['AVG_PF[]']), name='erro_comadeVS.CW500', marker=marker_cade),
+            go.Scatter(x=df['Timestamp'], y=np.abs(100*(df['fatorDePotencia_comade']-df['AVG_PF[]'])/df['AVG_PF[]']), name='erro_SC-1.0VS.CW500', marker=marker_cade),
             row=1, col=1
         )
     if(flags['df_semade'] and flags['df_yoko']):
         fig.add_trace(
-            go.Scatter(x=df['Timestamp'], y=np.abs(100*(df['fatorDePotencia_semade']-df['AVG_PF[]'])/df['AVG_PF[]']), name='erro_semadeVS.CW500', marker=marker_sade),
+            go.Scatter(x=df['Timestamp'], y=np.abs(100*(df['fatorDePotencia_semade']-df['AVG_PF[]'])/df['AVG_PF[]']), name='erro_SC-2.0VS.CW500', marker=marker_sade),
             row=2, col=1
         )
     if(flags['df_comade'] and flags['df_yoko']):
         fig.add_trace(
-            go.Scatter(x=df['Timestamp'], y=np.abs(100*(df['fatorDePotencia_comade']-df['AVG_PF[]'])/df['AVG_PF[]']), name='erro_comadeVS.CW500'),
+            go.Scatter(x=df['Timestamp'], y=np.abs(100*(df['fatorDePotencia_comade']-df['AVG_PF[]'])/df['AVG_PF[]']), name='erro_SC-1.0VS.CW500'),
             row=2, col=1
         )
     if(flags['df_comade'] and flags['df_semade'] and not flags['df_yoko']):
         fig.add_trace(
-            go.Scatter(x=df['Timestamp'], y=np.abs(100*(df['fatorDePotencia_comade']-df['fatorDePotencia_semade'])/df['fatorDePotencia_semade']), name='erro_comadeVS.semade'),
+            go.Scatter(x=df['Timestamp'], y=np.abs(100*(df['fatorDePotencia_comade']-df['fatorDePotencia_semade'])/df['fatorDePotencia_semade']), name='erro_SC-1.0VS.SC-2.0'),
             row=2, col=1
         )
     
-
-
     fig.update_layout(height=600, width=800)
+    fig.update_yaxes(title_text="", showgrid=True)
+    fig.update_xaxes(title_text="", showgrid=True, matches='x')
 
-    fig['layout']['yaxis1']['title']= 'Fator de potência (Hz)'
+    fig['layout']['yaxis1']['title']= 'Fator de potência'
     fig['layout']['yaxis2']['title']='Erro relativo (%)'
 
     graph.write(fig)
@@ -213,51 +215,51 @@ def plot_power(df, flags):
 
     if(flags['df_yoko']):
         fig.add_trace(
-            go.Scatter(x=df['Timestamp'], y=np.sqrt(df['AVG_S[VA][VA]']**2-df['AVG_Q[var][var]']**2)/1000, name='kW-cw500', marker=marker_yoko),
+            go.Scatter(x=df['Timestamp'], y=np.sqrt(df['AVG_S[VA][VA]']**2-df['AVG_Q[var][var]']**2)/1000, legendgroup='CW500', name='kW-CW500', marker=marker_yoko),
             row=1, col=1
         )
         fig.add_trace(
-            go.Scatter(x=df['Timestamp'], y=df['AVG_S[VA][VA]']/1000, name='kVA-cw500', marker=marker_yoko),
+            go.Scatter(x=df['Timestamp'], y=df['AVG_S[VA][VA]']/1000, legendgroup='CW500', name='kVA-CW500', marker=marker_yoko),
             row=2, col=1
         )
         fig.add_trace(
-            go.Scatter(x=df['Timestamp'], y=df['AVG_Q[var][var]']/1000, name='kvar-cw500', marker=marker_yoko),
+            go.Scatter(x=df['Timestamp'], y=df['AVG_Q[var][var]']/1000, legendgroup='CW500', name='kvar-CW500', marker=marker_yoko),
             row=3, col=1
         )
     if(flags['df_semade']):
         fig.add_trace(
-            go.Scatter(x=df['Timestamp'], y=df['potenciaAtiva_semade'], name='kW-semade', marker=marker_sade),
+            go.Scatter(x=df['Timestamp'], y=df['potenciaAtiva_semade'], legendgroup='SC-2.0', name='kW-SC-2.0', marker=marker_sade),
             row=1, col=1
         )
         fig.add_trace(
-            go.Scatter(x=df['Timestamp'], y=df['potenciaAparente_semade'], name='kVA-semade', marker=marker_sade),
+            go.Scatter(x=df['Timestamp'], y=df['potenciaAparente_semade'], legendgroup='SC-2.0', name='kVA-SC-2.0', marker=marker_sade),
             row=2, col=1
         )
         fig.add_trace(
-            go.Scatter(x=df['Timestamp'], y=df['potenciaReativa_semade'], name='kvar-semade', marker=marker_sade),
+            go.Scatter(x=df['Timestamp'], y=df['potenciaReativa_semade'], legendgroup='SC-2.0', name='kvar-SC-2.0', marker=marker_sade),
             row=3, col=1
         )
     if(flags['df_comade']):
         fig.add_trace(
-            go.Scatter(x=df['Timestamp'], y=df['potenciaAtiva_comade'], name='kW-comade', marker=marker_cade),
+            go.Scatter(x=df['Timestamp'], y=df['potenciaAtiva_comade'], legendgroup='SC-1.0', name='kW-SC-1.0', marker=marker_cade),
             row=1, col=1
         )
         fig.add_trace(
-            go.Scatter(x=df['Timestamp'], y=df['potenciaAparente_comade'], name='kVA-comade', marker=marker_cade),
+            go.Scatter(x=df['Timestamp'], y=df['potenciaAparente_comade'], legendgroup='SC-1.0', name='kVA-SC-1.0', marker=marker_cade),
             row=2, col=1
         )
         fig.add_trace(
-            go.Scatter(x=df['Timestamp'], y=df['potenciaReativa_comade'], name='kvar-comade', marker=marker_cade),
+            go.Scatter(x=df['Timestamp'], y=df['potenciaReativa_comade'], legendgroup='SC-1.0', name='kvar-SC-1.0', marker=marker_cade),
             row=3, col=1
         )
 
-
+    fig.update_layout(height=700, width=700)
+    fig.update_yaxes(title_text="", showgrid=True)
+    fig.update_xaxes(title_text="", showgrid=True, matches='x')
 
     fig['layout']['yaxis1']['title']= 'Potência ativa (kW)'
     fig['layout']['yaxis2']['title']= 'Potência aparente (kVA)'
     fig['layout']['yaxis3']['title']= 'Potência reativa (kvar)'
-
-    fig.update_layout(height=700, width=700)
 
     graph.write(fig)
 
