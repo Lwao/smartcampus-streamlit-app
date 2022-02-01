@@ -101,15 +101,22 @@ def app(state):
 
         calendar_col1, calendar_col2, result_calendar = st.columns(3)
 
-        start_date = calendar_col1.date_input('Data inicial:', value=df['Timestamp'].iloc[0], min_value=df['Timestamp'].iloc[0], max_value=df['Timestamp'].iloc[-1])
-        end_date = calendar_col2.date_input('Data final:', value=df['Timestamp'].iloc[-1], min_value=df['Timestamp'].iloc[0], max_value=df['Timestamp'].iloc[-1])
-        if(start_date<df['Timestamp'].iloc[0]): result_calendar.error('Erro: Data inicial precisa estar contida no período que há dados disponíveis.')
-        elif(end_date>df['Timestamp'].iloc[-1]): result_calendar.error('Erro: Data final precisa estar contida no período que há dados disponíveis.')
+        min_date = df['Timestamp'].iloc[0]
+        max_date = df['Timestamp'].iloc[-1]
+
+        start_date = pd.Timestamp(calendar_col1.date_input('Data inicial:', value=min_date, min_value=min_date, max_value=max_date))
+        end_date = pd.Timestamp(calendar_col2.date_input('Data final:', value=max_date, min_value=min_date, max_value=max_date))
+        
+        if(start_date<min_date): start_date=min_date
+        if(end_date<max_date): end_date=max_date
+        
+        if(start_date<min_date): result_calendar.error('Erro: Data inicial precisa estar contida no período que há dados disponíveis.')
+        elif(end_date>max_date): result_calendar.error('Erro: Data final precisa estar contida no período que há dados disponíveis.')
         elif(start_date >= end_date): result_calendar.error('Erro: Data final deve estar à frente da data inicial.')
         else: result_calendar.success('Data inicial: `%s`\n\nData final: `%s`' % (start_date, end_date))
 
-        idx_ini = df['Timestamp'][df['Timestamp']>=pd.Timestamp(start_date)].iloc[0:1].index[0]
-        idx_end = df['Timestamp'][df['Timestamp']>=pd.Timestamp(end_date)].iloc[0:1].index[0]
+        idx_ini = df['Timestamp'][df['Timestamp']>=start_date].iloc[0:1].index[0]
+        idx_end = df['Timestamp'][df['Timestamp']>=end_date].iloc[0:1].index[0]
         df = df.iloc[idx_ini:idx_end]
     
         state.__setitem__('df',df)
