@@ -181,12 +181,12 @@ def plot_power_factor(df, flags):
         )
     if(flags['df_comade'] and flags['df_yoko']):
         fig.add_trace(
-            go.Scatter(x=df['Timestamp'], y=np.abs(100*(df['fatorDePotencia_comade']-df['AVG_PF[]'])/df['AVG_PF[]']), legendgroup='error', name='erro_SC-1.0VS.CW500'),
+            go.Scatter(x=df['Timestamp'], y=np.abs(100*(df['fatorDePotencia_comade']-df['AVG_PF[]'])/df['AVG_PF[]']), legendgroup='error', name='erro_SC-1.0VS.CW500', marker=marker_cade),
             row=2, col=1
         )
     if(flags['df_comade'] and flags['df_semade'] and not flags['df_yoko']):
         fig.add_trace(
-            go.Scatter(x=df['Timestamp'], y=np.abs(100*(df['fatorDePotencia_comade']-df['fatorDePotencia_semade'])/df['fatorDePotencia_semade']), legendgroup='error', name='erro_SC-1.0VS.SC-2.0'),
+            go.Scatter(x=df['Timestamp'], y=np.abs(100*(df['fatorDePotencia_comade']-df['fatorDePotencia_semade'])/df['fatorDePotencia_semade']), legendgroup='error', name='erro_SC-1.0VS.SC-2.0', marker=marker_yoko),
             row=2, col=1
         )
     
