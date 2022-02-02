@@ -63,26 +63,21 @@ def plot_voltage_n_current(df, flags):
     for i in range(6):
         x = int(np.floor(i/3))+1
         y = int(i - 3*np.floor(i/3))+1
-
-        if(flags['df_yoko']):
-            error_sade = 100*np.abs((df[label_sade[i]]-df[label_yoko[i]])/df[label_yoko[i]])
-            error_cade = 100*np.abs((df[label_cade[i]]-df[label_yoko[i]])/df[label_yoko[i]])
-        else:
-            error_scade = 100*np.abs((df[label_cade[i]]-df[label_sade[i]])/df[label_sade[i]])
-
-
         
         if(flags['df_yoko'] and flags['df_semade']):
+            error_sade = 100*np.abs((df[label_sade[i]]-df[label_yoko[i]])/df[label_yoko[i]])
             fig.add_trace(
                 go.Scatter(x=df['Timestamp'], y=error_sade, legendgroup=labels[i], name=labels[i]+'SC-2.0VS.CW500', marker=marker_yoko),
                 row=x, col=y
             )
         if(flags['df_yoko'] and flags['df_comade']):
+            error_cade = 100*np.abs((df[label_cade[i]]-df[label_yoko[i]])/df[label_yoko[i]])
             fig.add_trace(
                 go.Scatter(x=df['Timestamp'], y=error_cade, legendgroup=labels[i], name=labels[i]+'SC-1.0VS.CW500', marker=marker_sade),
                 row=x, col=y
             )
         if(not flags['df_yoko'] and flags['df_comade'] and flags['df_semade']):
+            error_scade = 100*np.abs((df[label_cade[i]]-df[label_sade[i]])/df[label_sade[i]])
             fig.add_trace(
                 go.Scatter(x=df['Timestamp'], y=error_scade, legendgroup=labels[i], name=labels[i]+'SC-1.0VS.SC-2.0', marker=marker_cade),
                 row=x, col=y
